@@ -46,31 +46,50 @@
     return `${symbol}${decimalDegrees.toFixed(4)}°`;
   };
 
+  const validateFileSize = (file) => {
+    const fileSize = fileSizeToMB(file.size);
+
+    if (fileSize > 1) {
+      alert("File size exceeds 1 MB");
+      return false;
+    } else return true;
+  };
+
+  const fileSizeToMB = (fileSize) => (fileSize / 1024 / 1024).toFixed(2);
+
+  const getCoordsAndAddFile = (chosenFile) => {
+    const getExifData = () => {
+      return new Promise((resolve) => {
+        EXIF.getData(chosenFile, resolve);
+      });
+    };
+
+    getExifData().then(() => {
+      const lat = EXIF.getTag(chosenFile, "GPSLatitude");
+      const latRef = EXIF.getTag(chosenFile, "GPSLatitudeRef");
+      const lon = EXIF.getTag(chosenFile, "GPSLongitude");
+      const lonRef = EXIF.getTag(chosenFile, "GPSLongitudeRef");
+
+      if (lat && latRef && lon && lonRef) {
+        const latitude = coordsToDecimalDegrees(lat, latRef);
+        const longitude = coordsToDecimalDegrees(lon, lonRef);
+
+        chosenFile.latitude = latitude;
+        chosenFile.longitude = longitude;
+      }
+      addNewFile(chosenFile);
+    });
+  };
+
   const handleInputFiles = () => {
     const chosenFiles = [...filesInput.files];
 
     for (const chosenFile of chosenFiles) {
-      const getExifData = () => {
-        return new Promise((resolve) => {
-          EXIF.getData(chosenFile, resolve);
-        });
-      };
+      const sizeValidated = validateFileSize(chosenFile);
 
-      getExifData().then(() => {
-        const lat = EXIF.getTag(chosenFile, "GPSLatitude");
-        const latRef = EXIF.getTag(chosenFile, "GPSLatitudeRef");
-        const lon = EXIF.getTag(chosenFile, "GPSLongitude");
-        const lonRef = EXIF.getTag(chosenFile, "GPSLongitudeRef");
-
-        if (lat && latRef && lon && lonRef) {
-          const latitude = coordsToDecimalDegrees(lat, latRef);
-          const longitude = coordsToDecimalDegrees(lon, lonRef);
-
-          chosenFile.latitude = latitude;
-          chosenFile.longitude = longitude;
-        }
-        addNewFile(chosenFile);
-      });
+      if (sizeValidated) {
+        getCoordsAndAddFile(chosenFile);
+      }
     }
 
     clearInput(filesInput);
