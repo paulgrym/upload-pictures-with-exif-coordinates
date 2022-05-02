@@ -1,0 +1,15 @@
+.footer {
+  background-color: #024e9b;
+  padding: 16px;
+  font-size: 14px;
+  text-align: center;
+}
+
+.footer__link {
+  text-decoration: none;
+  color: white;
+}
+
+.footer__link:hover {
+  text-decoration: underline;
+}
