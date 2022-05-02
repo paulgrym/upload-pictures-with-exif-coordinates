@@ -1,0 +1,39 @@
+.dropArea {
+  border: 4px dashed #024f9bdc;
+  border-radius: 16px;
+  max-width: 320px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  text-align: center;
+}
+
+.dropArea--active {
+  border-style: solid;
+}
+
+.dropArea__label {
+  cursor: pointer;
+  background: #024e9b;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 8px;
+  transition: filter 0.5s;
+  margin-bottom: 16px;
+}
+
+.dropArea__label:hover {
+  filter: brightness(115%);
+}
+
+.dropArea__input {
+  opacity: 0;
+  height: 0;
+}
+
+.dropArea__text:first-of-type {
+  margin-bottom: 8px;
+}
