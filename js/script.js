@@ -1,6 +1,7 @@
 {
   let files = [];
   const filesInput = document.querySelector(".js-input");
+  const dropArea = document.querySelector(".js-dropArea");
 
   const removeFile = (index) => {
     files = [...files.slice(0, index), ...files.slice(index + 1)];
@@ -112,8 +113,23 @@
     });
   };
 
+  const handleDropAreaFiles = (e) => {
+    const dropData = e.dataTransfer;
+    const chosenFiles = [...dropData.files];
+
+    for (const chosenFile of chosenFiles) {
+      const sizeValidated = validateFileSize(chosenFile);
+      const typeValidated = validateFileType(chosenFile);
+
+      if (sizeValidated && typeValidated) {
+        getCoordsAndAddFile(chosenFile);
+      }
+    }
+  };
+
   const handleInputFiles = () => {
     const chosenFiles = [...filesInput.files];
+    console.log(filesInput);
 
     for (const chosenFile of chosenFiles) {
       const sizeValidated = validateFileSize(chosenFile);
@@ -127,6 +143,32 @@
     clearInput(filesInput);
   };
 
+  const active = () => dropArea.classList.add("dropArea--active");
+
+  const inactive = () => dropArea.classList.remove("dropArea--active");
+
+  const prevents = (event) => event.preventDefault();
+
+  const initDropArea = () => {
+    ["dragenter", "dragover", "dragleave", "drop"].forEach((eventName) => {
+      dropArea.addEventListener(eventName, prevents);
+    });
+
+    ["dragenter", "dragover"].forEach((eventName) => {
+      dropArea.addEventListener(eventName, active);
+    });
+
+    ["dragleave", "drop"].forEach((eventName) => {
+      dropArea.addEventListener(eventName, inactive);
+    });
+
+    dropArea.addEventListener("drop", handleDropAreaFiles);
+  };
+
+  const initInput = () => {
+    filesInput.addEventListener("change", handleInputFiles);
+  };
+
   const render = () => {
     renderFilesList();
     bindRemoveEvents();
@@ -134,7 +176,8 @@
 
   const init = () => {
     render();
-    filesInput.addEventListener("change", handleInputFiles);
+    initInput();
+    initDropArea();
   };
 
   init();
