@@ -8,6 +8,8 @@
     console.log(files);
   };
 
+  const setImageSource = (file) => URL.createObjectURL(file);
+
   const renderFilesList = () => {
     const filesList = files
       .map(
@@ -15,6 +17,11 @@
           `
           <li class="list__item">
             <span>${index + 1}.</span>
+            <img 
+              class="list__image js-image" 
+              src=${setImageSource(file)} 
+              height=100
+            >
             <span>${file.name}</span
             <span>
             Latitude: ${file.latitude ? file.latitude : "Unknown"}
