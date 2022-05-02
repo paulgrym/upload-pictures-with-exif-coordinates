@@ -4,7 +4,8 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Upload photos</title>
+    <title>Upload files</title>
+    <link rel="icon" href="./icon.png" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -14,9 +15,11 @@
     />
 
     <link rel="stylesheet" href="./css/style.css" />
-    <link rel="stylesheet" href="./css/dropArea.css" />
     <link rel="stylesheet" href="./css/header.css" />
     <link rel="stylesheet" href="./css/main.css" />
+    <link rel="stylesheet" href="./css/footer.css" />
+    <link rel="stylesheet" href="./css/section.css" />
+    <link rel="stylesheet" href="./css/dropArea.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
@@ -34,10 +37,10 @@
     ></script>
   </head>
   <body>
+    <header class="header">
+      <h1 class="header__title">Upload files</h1>
+    </header>
     <main class="main">
-      <header class="header">
-        <h1 class="header__title">Upload files</h1>
-      </header>
       <section class="section">
         <div class="dropArea js-dropArea">
           <label class="dropArea__label" for="filesInput">
@@ -51,13 +54,23 @@
             accept="image/jpg, image/jpeg"
             multiple
           />
-          <span class="dropArea__text">or drop your files here!</span>
-          <span class="dropArea__text">(.jpeg/.jpg, max. 1&nbsp;MB each)</span>
+          <span class="dropArea__text"
+            >or drop your .jpeg/.jpg files here!</span
+          >
+          <span class="dropArea__text">Max file size 1&nbsp;MB</span>
         </div>
       </section>
       <section class="section">
         <ul class="list js-filesList"></ul>
       </section>
     </main>
+    <footer class="footer">
+      <a
+        class="footer__link"
+        href="https://www.flaticon.com/free-icons/image"
+        title="image icons"
+        >Image icons created by feen - Flaticon</a
+      >
+    </footer>
   </body>
 </html>
