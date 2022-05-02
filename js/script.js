@@ -2,9 +2,23 @@
   let files = [];
   const filesInput = document.querySelector(".js-input");
 
+  const removeFile = (index) => {
+    files = [...files.slice(0, index), ...files.slice(index + 1)];
+    render();
+  };
+
+  const bindRemoveEvents = () => {
+    const removeButtons = document.querySelectorAll(".js-remove");
+    removeButtons.forEach((removeButton, index) => {
+      removeButton.addEventListener("click", () => {
+        removeFile(index);
+      });
+    });
+  };
+
   const addNewFile = (newFile) => {
     files = [...files, newFile];
-    renderFilesList();
+    render();
     console.log(files);
   };
 
@@ -29,6 +43,7 @@
             <span>
             Longitude: ${file.longitude ? file.longitude : "Unknown"}
             </span>
+            <button class="list__button js-remove"> Delete </button>
           </li>
         `
       )
@@ -112,8 +127,13 @@
     clearInput(filesInput);
   };
 
-  const init = () => {
+  const render = () => {
     renderFilesList();
+    bindRemoveEvents();
+  };
+
+  const init = () => {
+    render();
     filesInput.addEventListener("change", handleInputFiles);
   };
 
