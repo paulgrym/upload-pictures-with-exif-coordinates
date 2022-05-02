@@ -3,60 +3,14 @@
   const filesInput = document.querySelector(".js-input");
   const dropArea = document.querySelector(".js-dropArea");
 
-  const removeFile = (index) => {
-    files = [...files.slice(0, index), ...files.slice(index + 1)];
-    render();
-  };
-
-  const bindRemoveEvents = () => {
-    const removeButtons = document.querySelectorAll(".js-remove");
-    removeButtons.forEach((removeButton, index) => {
-      removeButton.addEventListener("click", () => {
-        removeFile(index);
-      });
-    });
-  };
-
-  const addNewFile = (newFile) => {
-    files = [...files, newFile];
-    render();
-    console.log(files);
-  };
-
   const setImageSource = (file) => URL.createObjectURL(file);
 
-  const renderFilesList = () => {
-    const filesList = files
-      .map(
-        (file, index) =>
-          `
-          <li class="list__item">
-            <span>${index + 1}.</span>
-            <img 
-              class="list__image js-image" 
-              src=${setImageSource(file)} 
-              height=100
-            >
-            <span>${file.name}</span
-            <span>
-            Latitude: ${file.latitude ? file.latitude : "Unknown"}
-            </span>
-            <span>
-            Longitude: ${file.longitude ? file.longitude : "Unknown"}
-            </span>
-            <button class="list__button js-remove"> Delete </button>
-          </li>
-        `
-      )
-      .join("");
+  const active = () => dropArea.classList.add("dropArea--active");
+  const inactive = () => dropArea.classList.remove("dropArea--active");
 
-    const filesElement = document.querySelector(".js-filesList");
-    filesElement.innerHTML = filesList;
-  };
+  const prevents = (event) => event.preventDefault();
 
-  const clearInput = (filesInput) => {
-    filesInput.value = "";
-  };
+  const fileSizeToMB = (fileSize) => (fileSize / 1024 / 1024).toFixed(2);
 
   const coordsToDecimalDegrees = (coords, coordsRef) => {
     const degrees = coords[0].numerator / coords[0].denominator;
@@ -87,7 +41,58 @@
     } else return true;
   };
 
-  const fileSizeToMB = (fileSize) => (fileSize / 1024 / 1024).toFixed(2);
+  const clearInput = (filesInput) => {
+    filesInput.value = "";
+  };
+
+  const renderFilesList = () => {
+    const filesList = files
+      .map(
+        (file, index) =>
+          `
+          <li class="list__item">
+            <span>${index + 1}.</span>
+            <img 
+              class="list__image js-image" 
+              src=${setImageSource(file)} 
+              height=100
+            >
+            <span>${file.name}</span
+            <span>
+            Latitude: ${file.latitude ? file.latitude : "Unknown"}
+            </span>
+            <span>
+            Longitude: ${file.longitude ? file.longitude : "Unknown"}
+            </span>
+            <button class="list__button js-remove"> Delete </button>
+          </li>
+        `
+      )
+      .join("");
+
+    const filesElement = document.querySelector(".js-filesList");
+    filesElement.innerHTML = filesList;
+  };
+
+  const removeFile = (index) => {
+    files = [...files.slice(0, index), ...files.slice(index + 1)];
+    render();
+  };
+
+  const bindRemoveEvents = () => {
+    const removeButtons = document.querySelectorAll(".js-remove");
+    removeButtons.forEach((removeButton, index) => {
+      removeButton.addEventListener("click", () => {
+        removeFile(index);
+      });
+    });
+  };
+
+  const addNewFile = (newFile) => {
+    files = [...files, newFile];
+    render();
+    console.log(files);
+  };
 
   const getCoordsAndAddFile = (chosenFile) => {
     const getExifData = () => {
@@ -113,41 +118,31 @@
     });
   };
 
+  const addFiles = (chosenFiles) => {
+    for (const chosenFile of chosenFiles) {
+      const sizeValidated = validateFileSize(chosenFile);
+      const typeValidated = validateFileType(chosenFile);
+
+      if (sizeValidated && typeValidated) {
+        getCoordsAndAddFile(chosenFile);
+      }
+    }
+  };
+
   const handleDropAreaFiles = (e) => {
     const dropData = e.dataTransfer;
     const chosenFiles = [...dropData.files];
 
-    for (const chosenFile of chosenFiles) {
-      const sizeValidated = validateFileSize(chosenFile);
-      const typeValidated = validateFileType(chosenFile);
-
-      if (sizeValidated && typeValidated) {
-        getCoordsAndAddFile(chosenFile);
-      }
-    }
+    addFiles(chosenFiles);
   };
 
   const handleInputFiles = () => {
     const chosenFiles = [...filesInput.files];
-    console.log(filesInput);
 
-    for (const chosenFile of chosenFiles) {
-      const sizeValidated = validateFileSize(chosenFile);
-      const typeValidated = validateFileType(chosenFile);
-
-      if (sizeValidated && typeValidated) {
-        getCoordsAndAddFile(chosenFile);
-      }
-    }
+    addFiles(chosenFiles);
 
     clearInput(filesInput);
   };
-
-  const active = () => dropArea.classList.add("dropArea--active");
-
-  const inactive = () => dropArea.classList.remove("dropArea--active");
-
-  const prevents = (event) => event.preventDefault();
 
   const initDropArea = () => {
     ["dragenter", "dragover", "dragleave", "drop"].forEach((eventName) => {
