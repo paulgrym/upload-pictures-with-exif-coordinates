@@ -6,7 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Upload photos</title>
 
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+
     <link rel="stylesheet" href="./css/style.css" />
+    <link rel="stylesheet" href="./css/dropArea.css" />
+    <link rel="stylesheet" href="./css/header.css" />
+    <link rel="stylesheet" href="./css/main.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
@@ -24,15 +34,30 @@
     ></script>
   </head>
   <body>
-    <label for="filesInput"> Choose files </label>
-    <input
-      class="js-input"
-      type="file"
-      name="filesInput"
-      id="filesInput"
-      accept="image/jpg, image/jpeg"
-      multiple
-    />
-    <ul class="list js-filesList"></ul>
+    <main class="main">
+      <header class="header">
+        <h1 class="header__title">Upload files</h1>
+      </header>
+      <section class="section">
+        <div class="dropArea js-dropArea">
+          <label class="dropArea__label" for="filesInput">
+            Click to choose
+          </label>
+          <input
+            class="dropArea__input js-input"
+            type="file"
+            name="filesInput"
+            id="filesInput"
+            accept="image/jpg, image/jpeg"
+            multiple
+          />
+          <span class="dropArea__text">or drop your files here!</span>
+          <span class="dropArea__text">(.jpeg/.jpg, max. 1&nbsp;MB each)</span>
+        </div>
+      </section>
+      <section class="section">
+        <ul class="list js-filesList"></ul>
+      </section>
+    </main>
   </body>
 </html>
