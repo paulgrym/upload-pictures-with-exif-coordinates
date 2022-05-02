@@ -51,19 +51,22 @@
         (file, index) =>
           `
           <li class="list__item">
-            <span>${index + 1}.</span>
-            <img 
-              class="list__image js-image" 
-              src=${setImageSource(file)} 
-              height=100
-            >
-            <span>${file.name}</span
-            <span>
-            Latitude: ${file.latitude ? file.latitude : "Unknown"}
-            </span>
-            <span>
-            Longitude: ${file.longitude ? file.longitude : "Unknown"}
-            </span>
+            <div class="list__data">
+              <span class="list__index">${index + 1}.</span>
+              <img 
+                class="list__image js-image" 
+                src=${setImageSource(file)} 
+              >
+            </div>
+            <span class="list__fileName">${file.name}</span>
+            <div class="list__coords">
+              <span class="list__text">
+              Latitude: ${file.latitude ? file.latitude : "Unknown"}
+              </span>
+              <span class="list__text">
+              Longitude: ${file.longitude ? file.longitude : "Unknown"}
+              </span>
+            </div>
             <button class="list__button js-remove"> Delete </button>
           </li>
         `
