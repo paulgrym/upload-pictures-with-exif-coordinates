@@ -46,6 +46,15 @@
     return `${symbol}${decimalDegrees.toFixed(4)}°`;
   };
 
+  const validateFileType = (file) => {
+    const validFileTypes = ["image/jpeg", "image/jpg"];
+
+    if (!validFileTypes.includes(file.type)) {
+      alert("File format should be .jpg or .jpeg");
+      return false;
+    } else return true;
+  };
+
   const validateFileSize = (file) => {
     const fileSize = fileSizeToMB(file.size);
 
@@ -86,8 +95,9 @@
 
     for (const chosenFile of chosenFiles) {
       const sizeValidated = validateFileSize(chosenFile);
+      const typeValidated = validateFileType(chosenFile);
 
-      if (sizeValidated) {
+      if (sizeValidated && typeValidated) {
         getCoordsAndAddFile(chosenFile);
       }
     }
