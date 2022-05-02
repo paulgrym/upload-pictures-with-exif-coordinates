@@ -1,0 +1,8 @@
+.header__title {
+  margin: 30px 0 20px;
+  text-transform: uppercase;
+  text-align: center;
+  color: #f05742;
+  font-weight: 600;
+  font-size: 36px;
+}
