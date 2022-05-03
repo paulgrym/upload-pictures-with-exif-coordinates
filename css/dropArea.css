@@ -1,6 +1,7 @@
 .dropArea {
   border: 4px dashed #024f9bdc;
   border-radius: 16px;
+  width: calc(100vw - 32px);
   max-width: 320px;
   display: flex;
   flex-direction: column;
