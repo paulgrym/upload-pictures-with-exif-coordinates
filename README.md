@@ -15,7 +15,7 @@ You can find a demo [here](https://paulgrym.github.io/upload-pictures-with-exif-
 
 On this page you can upload one or more pictures from a local hard drive to a browser memory through file input or drag&drop area.
 </br>Images are validated for type and size. GPS coordinates are obtained using the exif library.
-</br>Added pictures will be displayed below drag&drop area creating the list. Each list row contains:
+</br>Added pictures are displayed below drag&drop area, creating the list. Each list row contains:
 
 - numeric row id,
 - thumbnail,
@@ -26,7 +26,7 @@ On this page you can upload one or more pictures from a local hard drive to a br
 
 ## Preview
 
-<img src="./Preview.gif" width="500px">
+<img src="./preview.gif" width="500px">
 
 ## Technologies
 
