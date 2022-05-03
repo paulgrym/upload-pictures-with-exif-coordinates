@@ -31,6 +31,6 @@ In this page you can upload one or more pictures from a local hard drive to a br
 - JavaScript (ES6+)
 - BEM convention
 - MediaQueries
-- normalize.css
-- exif.js
+- Normalize.css
+- Exif-js
 
