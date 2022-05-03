@@ -20,7 +20,7 @@
     const decimalDegrees = degrees + minutes / 60 + seconds / 3600;
     const symbol = coordsRef === "N" || coordsRef === "E" ? "+" : "-";
 
-    return `${symbol}${decimalDegrees.toFixed(4)}°`;
+    return `${symbol}${decimalDegrees.toFixed(4)}&deg;`;
   };
 
   const validateFileType = (file) => {
@@ -51,14 +51,14 @@
         (file, index) =>
           `
           <li class="list__item">
-            <div class="list__data">
+            <div>
               <span class="list__index">${index + 1}.</span>
               <img 
                 class="list__image js-image" 
                 src=${setImageSource(file)} 
               >
             </div>
-            <span class="list__fileName">${file.name}</span>
+            <span>${file.name}</span>
             <div class="list__coords">
               <span class="list__text">
               Latitude: ${file.latitude ? file.latitude : "Unknown"}

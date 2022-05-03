@@ -1,6 +1,8 @@
 .list {
   list-style: none;
   padding: 0;
+  overflow-wrap: anywhere;
+  margin: 0;
 }
 
 .list__item {
@@ -9,9 +11,12 @@
   align-items: end;
   justify-items: start;
   grid-gap: 24px;
+}
+
+.list__item:not(:last-child) {
   margin: 16px 0;
   padding: 0 0 16px;
-  border-bottom: 1px solid #024f9b2a;
+  border-bottom: 1px solid #024f9b33;
 }
 
 @media (max-width: 819px) {
@@ -32,13 +37,9 @@
   }
 }
 
-.list__data {
-}
-
 .list__index {
   width: 25px;
   margin-right: 16px;
-  font-size: 18px;
 }
 
 .list__image {
@@ -47,15 +48,12 @@
   justify-self: center;
 }
 
-.list__fileName {
-}
-
 .list__coords {
   display: flex;
   flex-direction: column;
 }
 
-.list__text {
+.list__text:first-child {
   margin-bottom: 8px;
 }
 
@@ -69,5 +67,4 @@
   justify-self: center;
   transition: filter 0.5s;
   letter-spacing: 2px;
-  text-transform: uppercase;
 }
