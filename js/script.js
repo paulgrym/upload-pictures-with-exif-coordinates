@@ -94,7 +94,6 @@
   const addNewFile = (newFile) => {
     files = [...files, newFile];
     render();
-    console.log(files);
   };
 
   const getCoordsAndAddFile = (chosenFile) => {
