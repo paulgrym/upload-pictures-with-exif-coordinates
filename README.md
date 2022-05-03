@@ -26,7 +26,7 @@ On this page you can upload one or more pictures from a local hard drive to a br
 
 ## Preview
 
-<img src="./Preview.gif" width="700px">
+<img src="./Preview.gif" width="500px">
 
 ## Technologies
 
