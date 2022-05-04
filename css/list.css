@@ -67,4 +67,9 @@
   justify-self: center;
   transition: filter 0.5s;
   letter-spacing: 2px;
+  transition: filter 0.5s;
+}
+
+.list__button:hover {
+  filter: brightness(115%);
 }
