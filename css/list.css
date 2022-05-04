@@ -65,7 +65,6 @@
   padding: 8px 16px;
   border-radius: 8px;
   justify-self: center;
-  transition: filter 0.5s;
   letter-spacing: 2px;
   transition: filter 0.5s;
 }
