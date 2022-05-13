@@ -29,7 +29,8 @@
     if (!validFileTypes.includes(file.type)) {
       alert("File format should be .jpg or .jpeg");
       return false;
-    } else return true;
+    }
+    return true;
   };
 
   const validateFileSize = (file) => {
@@ -38,7 +39,8 @@
     if (fileSize > 1) {
       alert("File size exceeds 1 MB");
       return false;
-    } else return true;
+    }
+    return true;
   };
 
   const clearInput = (filesInput) => {
