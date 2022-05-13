@@ -110,28 +110,28 @@
     render();
   };
 
-  const getCoordsAndAddFile = (chosenFile) => {
+  const getCoords = async (chosenFile) => {
     const getExifData = () => {
       return new Promise((resolve) => {
         EXIF.getData(chosenFile, resolve);
       });
     };
 
-    getExifData().then(() => {
-      const lat = EXIF.getTag(chosenFile, "GPSLatitude");
-      const latRef = EXIF.getTag(chosenFile, "GPSLatitudeRef");
-      const lon = EXIF.getTag(chosenFile, "GPSLongitude");
-      const lonRef = EXIF.getTag(chosenFile, "GPSLongitudeRef");
+    await getExifData();
 
-      if (lat && latRef && lon && lonRef) {
-        const latitude = coordsToDecimalDegrees(lat, latRef);
-        const longitude = coordsToDecimalDegrees(lon, lonRef);
+    const lat = EXIF.getTag(chosenFile, "GPSLatitude");
+    const latRef = EXIF.getTag(chosenFile, "GPSLatitudeRef");
+    const lon = EXIF.getTag(chosenFile, "GPSLongitude");
+    const lonRef = EXIF.getTag(chosenFile, "GPSLongitudeRef");
 
-        chosenFile.latitude = latitude;
-        chosenFile.longitude = longitude;
-      }
-      addNewFile(chosenFile);
-    });
+    if (lat && latRef && lon && lonRef) {
+      const latitude = coordsToDecimalDegrees(lat, latRef);
+      const longitude = coordsToDecimalDegrees(lon, lonRef);
+
+      chosenFile.latitude = latitude;
+      chosenFile.longitude = longitude;
+    }
+    return chosenFile;
   };
 
   const addFiles = (chosenFiles) => {
@@ -140,7 +140,10 @@
       const typeValidated = validateFileType(chosenFile);
 
       if (sizeValidated && typeValidated) {
-        getCoordsAndAddFile(chosenFile);
+        (async () => {
+          await getCoords(chosenFile);
+          addNewFile(chosenFile);
+        })();
       }
     }
   };
